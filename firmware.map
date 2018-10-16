@@ -1,0 +1,369 @@
+Archive member included to satisfy reference by file (symbol)
+
+/usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o (exit)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00001000         xr
+data             0x00800040         0x00000100         rw !x
+config           0x00820000         0x00000002         rw !x
+lock             0x00830000         0x00000002         rw !x
+signature        0x00840000         0x00000004         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+LOAD /tmp/cc27rYt3.o
+START GROUP
+LOAD /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/libm.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/libc.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/libattiny10.a
+END GROUP
+                0x00001000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x1000
+                0x00000100                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0x100
+                0x00000002                __FUSE_REGION_LENGTH__ = DEFINED (__FUSE_REGION_LENGTH__)?__FUSE_REGION_LENGTH__:0x2
+                0x00000002                __LOCK_REGION_LENGTH__ = DEFINED (__LOCK_REGION_LENGTH__)?__LOCK_REGION_LENGTH__:0x2
+                0x00000004                __SIGNATURE_REGION_LENGTH__ = DEFINED (__SIGNATURE_REGION_LENGTH__)?__SIGNATURE_REGION_LENGTH__:0x4
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000       0x36
+ *(.vectors)
+ .vectors       0x00000000       0x16 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x00000016                . = ALIGN (0x2)
+                0x00000016                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000016        0x0 linker stubs
+ *(.trampolines*)
+                0x00000016                __trampolines_end = .
+ *libprintf_flt.a:*(.progmem.data)
+ *libc.a:*(.progmem.data)
+ *(.progmem*)
+                0x00000016                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000016                __ctors_start = .
+ *(.ctors)
+                0x00000016                __ctors_end = .
+                0x00000016                __dtors_start = .
+ *(.dtors)
+                0x00000016                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000016        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+                0x00000016                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000016        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000022        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+ *(.init9)
+ *(.text)
+ .text          0x00000026        0x2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+                0x00000026                __vector_1
+                0x00000026                __bad_interrupt
+                0x00000026                __vector_6
+                0x00000026                __vector_3
+                0x00000026                __vector_7
+                0x00000026                __vector_5
+                0x00000026                __vector_4
+                0x00000026                __vector_9
+                0x00000026                __vector_2
+                0x00000026                __vector_8
+                0x00000026                __vector_10
+ .text          0x00000028        0x0 /tmp/cc27rYt3.o
+ .text          0x00000028        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+                0x00000028                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x00000028        0xa /tmp/cc27rYt3.o
+                0x00000028                main
+ .text.libgcc.mul
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc   0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+                0x00000032                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000032        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+                0x00000032                exit
+                0x00000032                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000032        0x4 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000036                _etext = .
+
+.data           0x00800040        0x0 load address 0x00000036
+                [!provide]                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800040        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+ .data          0x00800040        0x0 /tmp/cc27rYt3.o
+ .data          0x00800040        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800040                . = ALIGN (0x2)
+                0x00800040                _edata = .
+                [!provide]                PROVIDE (__data_end, .)
+
+.bss            0x00800040        0x0
+                [!provide]                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800040        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+ .bss           0x00800040        0x0 /tmp/cc27rYt3.o
+ .bss           0x00800040        0x0 /usr/lib/gcc/avr/4.9.2/avrtiny/libgcc.a(_exit.o)
+ *(.bss*)
+ *(COMMON)
+                [!provide]                PROVIDE (__bss_end, .)
+                0x00000036                __data_load_start = LOADADDR (.data)
+                0x00000036                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800040        0x0
+                [!provide]                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                [!provide]                PROVIDE (__noinit_end, .)
+                0x00800040                _end = .
+                [!provide]                PROVIDE (__heap_start, .)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.config
+ *(.config*)
+
+.stab           0x00000000      0x4a4
+ *(.stab)
+ .stab          0x00000000      0x4a4 /tmp/cc27rYt3.o
+
+.stabstr        0x00000000      0xb33
+ *(.stabstr)
+ .stabstr       0x00000000      0xb33 /tmp/cc27rYt3.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x11
+ *(.comment)
+ .comment       0x00000000       0x11 /tmp/cc27rYt3.o
+                                 0x12 (size before relaxing)
+
+.note.gnu.avr.deviceinfo
+                0x00000000       0x3c
+ .note.gnu.avr.deviceinfo
+                0x00000000       0x3c /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avrtiny/crtattiny10.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line .debug_line.* .debug_line_end)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(firmware.elf elf32-avr)
+LOAD linker stubs
