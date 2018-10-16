@@ -1,7 +1,19 @@
 #include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/pgmspace.h>
+
+volatile const char fv[100] PROGMEM = { 1 };
 
 int main()
 {
-	DDRB = 0xFF;
-	while(1) { PORTB = 0xFF; PORTB = 0x00; }
+	cli();
+	DDRB = 1;
+
+	pgm_read_byte( fv + 100 );
+	while(1) {
+		PORTB |= 1;
+		PORTB &= ~1;
+	}
 }
+
+

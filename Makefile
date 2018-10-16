@@ -5,23 +5,24 @@ AVRCFLAGS=-g -Wall -Os -mmcu=$(AVRPART) -DF_CPU=20000000UL
 AVRASFLAGS:=$(AVRCFLAGS)
 
 
-test_tpi : gpio_tpi.c gen_ios.c
-	gcc -o $@ $^
+tpiflash : gpio_tpi.c gen_ios.c tpiflash.c
+	gcc -o $@ $^ -Os
 
 firmware.bin : firmware.elf
 	avr-objcopy -j .text -j .data -O binary firmware.elf firmware.bin 
 
 firmware.elf : firmware.c
 	avr-gcc -I  -g $(AVRCFLAGS)   -mmcu=$(AVRPART) -Wl,-Map,firmware.map -o $@ $^
+	avr-objdump $@ -S > firmware.lst
 
 test.bin : test.elf
 	avr-objcopy -j .text -j .data -O binary test.elf test.bin 
 
 
-burn : test_tpi firmware.bin
-	./test_tpi firmware.bin
+burn : tpiflash firmware.bin
+	./tpiflash 1e9003 firmware.bin
 
 clean :
-	rm -rf *.o *~ test_tpi *.elf *.bin
+	rm -rf *.o *~ tpiflash *.elf *.bin
 
 
