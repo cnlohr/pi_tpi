@@ -31,6 +31,21 @@ You may modify the GPIO # the ports are on in gpio_tpi.h.
 #endif
 ```
 
+## High-voltage programming (to reuse the RESET pin)
+
+Conveniently, you can also manually do high-voltage programming by connecting RESET to a 12V source instead of the Raspberry Pi!  That means you can use all 4 pins of this glorious little bugger.
+
+
+## Setup instructions on Raspbian:
+```
+apt-get install avr-libc gcc-avr build-essential git
+git clone https://github.com/cnlohr/pi_tpi
+```
+
+## Configuring use with other devices.
+
+You can actually use this code on just about anything, since it's written as standard C code.  This means you could say have an AVR co-processor to your ESP32 or an ESP8266 or something and be able to flash it directly from that device!  Simply swap out "gen_ios.c" with the pertinent function calls and override GPRST, GPCLK and GPDAT.
+
 ## Example Usage
 
 The 'help':
@@ -140,26 +155,34 @@ root@rasvive:~/git/pi_tpi# ./tpiflash r 1e9003 firmware.bin
 43d0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
 43e0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
 43f0: 01 00 ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
-
 ```
+
+Here is an example of seeking to find the ideal OSCCAL value for 12.000 MHz...
+```
+root@rasvive:~/git/pi_tpi# ./tpiflash o 1e9003 12000000
+128, 8522236.671001
+179, 10526286.201877
+219, 12269787.034870
+187, 10862695.535067
+212, 11950264.972363
+232, 12873071.020809
+216, 12132785.652300
+204, 11600575.284877
+213, 11998809.932487
+220, 12315179.987081
+215, 12088724.925063
+211, 11910222.626079
+214, 12036687.137692
+212, 11952989.455685
+213, 11993320.370582
+213, 11993320.370582
+213, 11998809.932487, 1190.067513, 0.0099%
+```
+
+You could use this to flash in a value to flash to be read by your app!
 
 Note: You provide the device id as to prevent you from accidentally clobbering the wrong chip type.  That's what's up with the "device id" field.
 
-
-## High-voltage programming (to reuse the RESET pin)
-
-Conveniently, you can also manually do high-voltage programming by connecting RESET to a 12V source instead of the Raspberry Pi!  That means you can use all 4 pins of this glorious little bugger.
-
-
-## Setup instructions on Raspbian:
-```
-apt-get install avr-libc gcc-avr build-essential git
-git clone https://github.com/cnlohr/pi_tpi
-```
-
-## Configuring use with other devices.
-
-You can actually use this code on just about anything, since it's written as standard C code.  This means you could say have an AVR co-processor to your ESP32 or an ESP8266 or something and be able to flash it directly from that device!  Simply swap out "gen_ios.c" with the pertinent function calls and override GPRST, GPCLK and GPDAT.
 
 ## Added notes.
 
