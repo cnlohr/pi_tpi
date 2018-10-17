@@ -53,10 +53,11 @@ Error: Usage: tpiflash [w/e/c/r/o/p] [device id]
 ```./tpiflash w 1e9003 firmware.bin
 Erased.
 ............................................................................................................
-Verified OK.```
+Verified OK.
+```
 
 Note: You provide the device id as to prevent you from accidentally clobbering the wrong chip type.  That's what's up with the "device id" field.
-u
+
 
 ## High-voltage programming (to reuse the RESET pin)
 
