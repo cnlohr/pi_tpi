@@ -7,10 +7,11 @@ Yep.  It works.  At least tested pretty thurrougly with my ATTiny10.  It can als
 
 For this demo, connect an ATTiny10 in the following way:
 
-RPI
+```RPI
  GPIO 2 -> RESET
  GPIO 3 -> TPICLK
  GPIO 4 -> TPIDAT
+```
 
 Of course, you may hook it up however you want, but as a warning, if you do hook it up significantly differently, RESET and TPIDAT may require pull-up resistors.
 
