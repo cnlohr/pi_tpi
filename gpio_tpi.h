@@ -36,5 +36,12 @@ void TPIDump( int start, int length, const char * name );
 #define NVMCMD 0x33
 #define NVMCSR 0x32
 
+
+
+#define GPRST 2
+#define GPCLK 3
+#define GPDAT 4
+
+
 #endif
 

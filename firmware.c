@@ -6,10 +6,16 @@ int main()
 {
 	cli();
 	DDRB = 1;
-	WDTCSR = 0;
+
+	CCP = 0xD8; //Enable CCP.
+	CLKPSR = 0; //Go for 8 MHz operation.
+
 	while(1) {
-		PORTB |= 1;
-		PORTB &= ~1;
+		asm volatile( "WDR" );
+		PORTB = 1;
+		PORTB = 0;
+		PORTB = 1;
+		PORTB = 0;
 	}
 }
 

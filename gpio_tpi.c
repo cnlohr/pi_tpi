@@ -7,9 +7,6 @@
 //Portions of this are roughly based on:
 //	https://pcm1723.hateblo.jp/entry/20111208/1323351725
 
-#define GPRST 2
-#define GPCLK 3
-#define GPDAT 4
 
 void ClockDelay() { int i = 500; do { asm volatile ("nop"); } while( i-- ); } //700ksps (slow enough)
 
@@ -212,7 +209,7 @@ void TPIWriteData( uint16_t address, const uint8_t * data, int length )
 int TPIEraseSection( uint16_t secadd )
 {
 	int i;
-	TPIWriteIO( NVMCMD, 0x14 ); //Chip erase.
+	TPIWriteIO( NVMCMD, 0x14 ); //Section erase.
 	TPIWriteData( secadd|1, "x", 1 ); //Dummy write.
 	for( i = 0; i < 1000; i++ )
 	{
@@ -293,30 +290,30 @@ int TPIEraseAndWriteAllFlash( const uint8_t * data, int length )
 		return -1;
 	}
 
-	printf( "Erased.\n" );
+	fprintf( stderr, "Erased.\n" );
 
 	for( i = 0; i < length; i+=2 )
 	{
 		TPIWriteFlashWord( i + 0x4000, data + i );
 		if( ( i & 0x20 ) == 0 )
 		{
-			printf( "." );
-			fflush( stdout );
+			fprintf( stderr, "." );
+			fflush( stderr );
 		}
 	}
 
-	printf( ".\n" );
+	fprintf( stderr, ".\n" );
 	uint8_t verify[length];
 	int r =  TPIReadData( 0x4000, verify, length );
 
 	if( memcmp( verify, data, length ) == 0 )
 	{
-		printf( "Verified OK.\n" );
+		fprintf( stderr, "Verified OK.\n" );
 		return 0;
 	}
 	else
 	{
-		printf( "Verification failed.\n" );
+		fprintf( stderr, "Verification failed.\n" );
 		return -1;
 	}
 }
