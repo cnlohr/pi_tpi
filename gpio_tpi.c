@@ -280,7 +280,7 @@ void TPIDump( int start, int length, const char * name )
 
 
 
-int TPIEraseAndWriteAllFlash( const uint8_t * data, int length )
+int TPIEraseAndWriteAllFlash( const uint8_t * data, int length, int quiet )
 {
 	int i;
 
@@ -290,25 +290,25 @@ int TPIEraseAndWriteAllFlash( const uint8_t * data, int length )
 		return -1;
 	}
 
-	fprintf( stderr, "Erased.\n" );
+	if( !quiet ) fprintf( stderr, "Erased.\n" );
 
 	for( i = 0; i < length; i+=2 )
 	{
 		TPIWriteFlashWord( i + 0x4000, data + i );
-		if( ( i & 0x20 ) == 0 )
+		if( !quiet && ( i & 0x20 ) == 0 )
 		{
 			fprintf( stderr, "." );
 			fflush( stderr );
 		}
 	}
 
-	fprintf( stderr, ".\n" );
+	if( !quiet ) fprintf( stderr, ".\n" );
 	uint8_t verify[length];
 	int r =  TPIReadData( 0x4000, verify, length );
 
 	if( memcmp( verify, data, length ) == 0 )
 	{
-		fprintf( stderr, "Verified OK.\n" );
+		if( !quiet ) fprintf( stderr, "Verified OK.\n" );
 		return 0;
 	}
 	else

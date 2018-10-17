@@ -11,6 +11,8 @@ int main()
 
 	DDRB = 1;
 	PORTB = 0;
+	CCP = 0xD8; //Enable CCP.
+	CLKPSR = 0; //Go for 8 MHz operation.
 
 	//We do WDR resetting in here in case the WDR always on fuse is flashed.
 

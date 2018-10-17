@@ -8,9 +8,9 @@ AVRASFLAGS:=$(AVRCFLAGS)
 tpiflash : gpio_tpi.c gen_ios.c tpiflash.c
 	gcc -o $@ $^ -Os
 
-firmware.bin : firmware.c
-	avr-gcc -I  -g $(AVRCFLAGS)   -mmcu=$(AVRPART) -Wl,-Map,firmware.map -o $@ $^
-	avr-objdump $@ -S > firmware.lst
+firmware.bin : firmware.c firmware.S
+	avr-gcc -I  -g $(AVRCFLAGS)   -mmcu=$(AVRPART) -Wl,-Map,firmware.map -o firmware.elf $^
+	avr-objdump firmware.elf -S > firmware.lst
 	avr-objcopy -j .text -j .data -O binary firmware.elf firmware.bin 
 
 osccal.bin : osccal.c

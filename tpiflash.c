@@ -12,7 +12,7 @@ double GTime()
 	return tv.tv_sec + tv.tv_usec / 1000000.0;
 }
 
-int FlashFile( const char * filename )
+int FlashFile( const char * filename, int silent )
 {
 	FILE * f = fopen( filename, "rb" );
 	if( !f )
@@ -33,10 +33,13 @@ int FlashFile( const char * filename )
 
 	if( len & 1 ) len++; //Make sure we have full words.
 
-	if( TPIEraseAndWriteAllFlash( buffer, len ) )
+	if( TPIEraseAndWriteAllFlash( buffer, len, silent ) )
 	{
-		TPIDump( 0x4000, len, "FLASH" );
-		printf( "\n" );
+		if( !silent )
+		{
+			TPIDump( 0x4000, len, "FLASH" );
+			printf( "\n" );
+		}
 		return -1;
 	}
 	return 0;
@@ -67,7 +70,7 @@ double GetMHzOfOSCCAL( uint8_t osccal, const char * code )
 	int i;
 	Init( code );
 
-	if( FlashFile( "osccal.bin" ) ) { TPIEnd(); return -11; }
+	if( FlashFile( "osccal.bin", 1 ) ) { TPIEnd(); return -11; }
 	uint8_t wordset[2] = { osccal, 0xff };
 	TPIWriteFlashWord( 0x40fe, wordset );
 	TPIEnd();
@@ -187,7 +190,7 @@ int main( int argc, char ** argv )
 			return -4;
 		}
 
-		FlashFile( argv[3] );
+		FlashFile( argv[3], 0 );
 	}
 	else if( argv[1][0] == 'O' || argv[1][0] == 'o' )
 	{
@@ -212,18 +215,32 @@ int main( int argc, char ** argv )
 			int osccal = 0x80;
 			int jump = 0x40;
 			int tries = 0;
+
+			int best_osc = 0x80;
+			double best_cal = 1e20;
+			double freqat = 1e20;
 			TPIEnd();
-			for( tries = 0; tries < 15; tries++ )
+			for( tries = 0; tries < 16; tries++ )
 			{
 				double MHz = GetMHzOfOSCCAL( osccal, argv[2] );
 				if( MHz < 0 ) return -98;
 				jump = jump * .8;
 				printf( "%d, %f\n", osccal, MHz );
+				double diff = MHz - target;
+				if( diff < 0 ) diff = -diff;
+				if( diff < best_cal ) {
+					best_osc = osccal;
+					best_cal = diff;
+					freqat = MHz;
+				} 
+
+
 				if( MHz < target ) osccal += jump;
 				else osccal -= jump;
 				if( osccal < 0 ) osccal = 0;
 				if( osccal > 0xff ) osccal = 0xff;
 			}
+			printf( "%d, %f, %f, %3.4f%%\n", best_osc, freqat, best_cal, best_cal/freqat*100. );
 		}
 		return 0;
 timeout:
