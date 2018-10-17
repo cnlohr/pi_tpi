@@ -19,6 +19,8 @@ int main()
 	CCP = 0xD8; //Enable CCP.
 	CLKPSR = 0; //Go for 8 MHz operation.
 
+	OSCCAL = 140;
+
 	DDRB = WSA | WSB;
 
 	while(1)
@@ -27,6 +29,11 @@ int main()
 		uint8_t y = hue(frame+42);
 		uint8_t r = hue(frame+85);
 		uint8_t b = hue(frame+171);
+
+		r = 0;
+		g = 255;
+		b = 0;
+		y = 0;
 
 		ws_outA( g );
 		ws_outA( r );
