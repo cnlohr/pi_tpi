@@ -206,3 +206,13 @@ Note: You provide the device id as to prevent you from accidentally clobbering t
 
 This was actually written in two days for Unit-E Technologies and is made available freely.  This project is licensable via the newbsd license.
 
+
+## Additional reading
+
+An Article about someone else doing something like this 6 years ago:
+https://hackaday.com/2012/08/23/programming-the-attiny10-with-an-arduino/
+
+Notes on initializing TPI mode:
+https://pcm1723.hateblo.jp/entry/20111208/1323351725
+
+
