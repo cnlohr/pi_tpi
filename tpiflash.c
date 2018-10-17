@@ -118,6 +118,21 @@ timeout:
 	return -5;
 }
 
+int ReadEasy( const char * readdata )
+{
+	if( readdata[0] == '0' )
+	{
+		if( readdata[1] == 'x' || readdata[1] == 'X' )
+		{
+			return strtol( readdata+2, NULL, 16 );
+		}
+		else
+			return strtol( readdata+1, NULL, 8 );
+	}
+	else
+		return strtol(readdata, NULL, 10);
+}
+
 int main( int argc, char ** argv )
 {
 	int i;
@@ -133,6 +148,7 @@ int main( int argc, char ** argv )
 	e: erase chip.\n\
 	c: config chip. Extra parameter   [config byte, default 0 (inverted)]\n\
 	o: oscillator calibration. Extra p[target MHz, optional]\n\
+	p: poke.  Extra: [address in flash] [value]\n\
 	r: dump chip memories\n" );
 		return -1;
 	}
@@ -172,6 +188,47 @@ int main( int argc, char ** argv )
 		printf( "Set.\n" );
 		TPIDump( 0x3f40, 0x02, "CONFIG" );
 
+	}
+	else if( argv[1][0] == 'P' || argv[1][0] == 'p' )
+	{
+		if( argc != 5 )
+		{
+			TPIEnd();
+			fprintf( stderr, "Usage: p [dev id] [address, START AT 0x4000 for flash, must be word aligned] [value (word)]\n" );
+			return -47;
+		}
+		uint16_t addy = ReadEasy( argv[3] );
+		uint16_t val = ReadEasy( argv[4] );
+		uint8_t matching[2];
+		int r =  TPIReadData( addy, matching, 2 );
+		if( r < 0 )
+		{
+			TPIEnd();
+			fprintf( stderr, "Can't read specified value.\n" );
+			return -46;
+		}
+		if( matching[0] != 0xff || matching[1] != 0xff )
+		{
+			TPIEnd();
+			fprintf( stderr, "Can't write to unerased flash.\n" );
+			return -45;
+		}
+		matching[0] = val&0xff;
+		matching[1] = val>>8;
+		TPIWriteFlashWord( addy, matching );
+		uint8_t verify[2] = { 0xff, 0xff };
+		r =  TPIReadData( addy, verify, 2 );
+		if( r == 0  && matching[0] == verify[0] && matching[1] == verify[1] )
+		{
+			printf( "[0x%04x] = 0x%02x%02x\n", addy, verify[0], verify[1] );
+		}
+		else
+		{
+			TPIEnd();
+			printf( "%d: [0x%04x] = 0x%02x%02x\n", r , addy, verify[0], verify[1] );
+			fprintf( stderr, "Verification failed.\n" );
+			return -44;
+		}
 	}
 	else if( argv[1][0] == 'R' || argv[1][0] == 'r' )
 	{
