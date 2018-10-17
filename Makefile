@@ -20,7 +20,7 @@ test.bin : test.elf
 
 
 burn : tpiflash firmware.bin
-	./tpiflash 1e9003 firmware.bin
+	./tpiflash w 1e9003 firmware.bin
 
 clean :
 	rm -rf *.o *~ tpiflash *.elf *.bin

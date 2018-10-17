@@ -209,6 +209,20 @@ void TPIWriteData( uint16_t address, const uint8_t * data, int length )
 	return;
 }
 
+int TPIEraseSection( uint16_t secadd )
+{
+	int i;
+	TPIWriteIO( NVMCMD, 0x14 ); //Chip erase.
+	TPIWriteData( secadd|1, "x", 1 ); //Dummy write.
+	for( i = 0; i < 1000; i++ )
+	{
+		int rx = TPIReadIO( NVMCSR );
+		if( rx < 0 ) return -1;
+		if( rx == 0 ) return 0;
+		usleep(100);
+	}
+	return -2;
+}
 
 int TPIErase()
 {

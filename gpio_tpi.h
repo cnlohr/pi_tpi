@@ -6,6 +6,7 @@
 //You probably want these...
 int TPIInit();	//Verify your device ID.
 int TPIErase();
+int TPIEraseSection( uint16_t secadd );
 int TPIWriteFlashWord( uint16_t address, const uint8_t * data ); //NOTE: address should have 0x4000 offset.
 int TPIEraseAndWriteAllFlash( const uint8_t * data, int length );
 void TPIBreak();
