@@ -139,7 +139,7 @@ int main( int argc, char ** argv )
 
 	if( argc < 3 || strlen( argv[2] ) != 6 )
 	{
-		fprintf( stderr, "Error: Usage: tpiflash [w/e/c/r] [device id]\n\
+		fprintf( stderr, "Error: Usage: tpiflash [w/e/c/r/o/p] [device id]\n\
 	1e8f0a - ATTiny4\n\
 	1e8f09 - ATTiny5\n\
 	1e9008 - ATTiny9\n\
@@ -147,9 +147,9 @@ int main( int argc, char ** argv )
 	w: write flash.  Extra parameter  [binary file to flash]\n\
 	e: erase chip.\n\
 	c: config chip. Extra parameter   [config byte, default 0 (inverted)]\n\
+	r: dump chip memories\n\
 	o: oscillator calibration. Extra p[target MHz, optional]\n\
-	p: poke.  Extra: [address in flash] [value]\n\
-	r: dump chip memories\n" );
+	p: poke.  Extra: [address in flash] [value]\n");
 		return -1;
 	}
 

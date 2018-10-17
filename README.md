@@ -30,6 +30,34 @@ You may modify the GPIO # the ports are on in gpio_tpi.h.
 #endif
 ```
 
+## Example Usage
+
+The 'help':
+
+```
+Error: Usage: tpiflash [w/e/c/r/o/p] [device id]
+	1e8f0a - ATTiny4
+	1e8f09 - ATTiny5
+	1e9008 - ATTiny9
+	1e9003 - ATTiny10
+
+	w: write flash.  Extra parameter  [binary file to flash]
+	e: erase chip.
+	c: config chip. Extra parameter   [config byte, default 0 (inverted)]
+	r: dump chip memories
+	o: oscillator calibration. Extra p[target MHz, optional]
+	p: poke.  Extra: [address in flash] [value]
+```
+
+
+```./tpiflash w 1e9003 firmware.bin
+Erased.
+............................................................................................................
+Verified OK.```
+
+Note: You provide the device id as to prevent you from accidentally clobbering the wrong chip type.  That's what's up with the "device id" field.
+u
+
 ## High-voltage programming (to reuse the RESET pin)
 
 Conveniently, you can also manually do high-voltage programming by connecting RESET to a 12V source instead of the Raspberry Pi!  That means you can use all 4 pins of this glorious little bugger.
