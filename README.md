@@ -3,6 +3,24 @@ Using a Raspberry Pi to program an ATTiny4/5/9/10.  But, mostly the $0.25 ATTiny
 
 Yep.  It works.  At least tested pretty thurrougly with my ATTiny10.  It can also read all the memories _AND_ run timings against the AVR to do processor clock calibration, as well as fuses and manual poking to flash en post to allow for custom configuration.
 
+## It's fast.  No, really.
+
+This is if I re-compile my AVR code from source, and blast it onto the device.
+
+```
+avr-gcc -I  -g -g -Wall -Os -mmcu=attiny10 -DF_CPU=8000000UL   -mmcu=attiny10 -Wl,-Map,firmware.map -o firmware.elf firmware.c firmware.S
+avr-objdump firmware.elf -S > firmware.lst
+avr-objcopy -j .text -j .data -O binary firmware.elf firmware.bin 
+./tpiflash w 1e9003 firmware.bin
+Erased.
+............................................................................................................
+Verified OK.
+
+real	0m1.116s
+user	0m0.397s
+sys	0m0.033s
+```
+
 ## Physical connections
 
 For this demo, connect an ATTiny10 in the following way:

@@ -1,7 +1,7 @@
 all : osccal.bin burn
 
 AVRPART=attiny10
-AVRCFLAGS=-g -Wall -Os -mmcu=$(AVRPART) -DF_CPU=20000000UL
+AVRCFLAGS=-g -Wall -Os -mmcu=$(AVRPART) -DF_CPU=8000000UL
 AVRASFLAGS:=$(AVRCFLAGS)
 
 
