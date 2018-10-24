@@ -27,22 +27,36 @@ int main()
 
 	while(1)
 	{
-		uint8_t g = hue(frame);
-		uint8_t y = hue(frame+42);
-		uint8_t r = hue(frame+85);
-		uint8_t b = hue(frame+171);
 
-		ws_outA( g );
-		ws_outA( r );
-		ws_outA( b );
-		ws_outA( y );
-		PORTB &= ~WSA;
+		int i;
+		for( i = 0; i < 9; i++ )
+		{
+			uint8_t g = hue(frame+i*9);
+			uint8_t y = hue(frame+42+i*9);
+			uint8_t r = hue(frame+85+i*9);
+			uint8_t b = hue(frame+171+i*9);
 
-		ws_outB( g );
-		ws_outB( r );
-		ws_outB( b );
-		ws_outB( y );
-		PORTB &= ~WSB;
+			ws_outA( g );
+			ws_outA( r );
+			ws_outA( b );
+			ws_outA( y );
+			PORTB &= ~WSA;
+		}
+
+		for( i = 0; i < 9; i++ )
+		{
+			uint8_t g = hue(frame-i*9-9);
+			uint8_t y = hue(frame+42-i*9-9);
+			uint8_t r = hue(frame+85-i*9-9);
+			uint8_t b = hue(frame+171-i*9-9);
+
+
+			ws_outB( g );
+			ws_outB( r );
+			ws_outB( b );
+			ws_outB( y );
+			PORTB &= ~WSB;
+		}
 
 
 		for( i = 0; i < 10000; i++ )

@@ -51,7 +51,7 @@ int Init( const char * code )
 	int initcode = TPIInit();
 	if( initcode < 0 )
 	{
-		fprintf( stderr, "Error: Cannot connect to ATTiny\n" );
+		fprintf( stderr, "Error: Cannot connect to ATTiny (Error %d)\n", initcode );
 		exit( -3 );
 	}
 	char initcodesat[10];
