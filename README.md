@@ -29,12 +29,14 @@ For this demo, connect an ATTiny10 in the following way:
   RPI      ATTINY
  GPIO 2 -> RESET
  GPIO 3 -> TPICLK
- GPIO 4 -> TPIDAT
+ GPIO 4 { optional 100 - 1k ohm resistor } TPIDAT 
 ```
 
 Of course, you may hook it up however you want, but as a warning, if you do hook it up significantly differently, RESET and TPIDAT may require pull-up resistors.
 
 You may modify the GPIO # the ports are on in gpio_tpi.h.
+
+The optional resistor on TPIDAT is to allow programming at better voltages (5V)
 
 
 ```
