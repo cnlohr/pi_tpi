@@ -148,7 +148,7 @@ int main( int argc, char ** argv )
 	e: erase chip.\n\
 	c: config chip. Extra parameter   [config byte, default 0 (inverted)]\n\
 	r: dump chip memories\n\
-	o: oscillator calibration. Extra p[target MHz, optional]\n\
+	o: oscillator calibration. Extra par [target MHz, optional or 'all']\n\
 	p: poke.  Extra: [address in flash] [value]\n");
 		return -1;
 	}
@@ -266,6 +266,18 @@ int main( int argc, char ** argv )
 			double MHz = GetMHzOfOSCCAL( osccal[0], argv[2] );
 			printf( "%d, %f\n", osccal[0], MHz );
 		}
+		else if( strcmp( argv[3], "all" ) == 0 )
+		{
+			int cal = 0;
+			TPIEnd();
+			for( ; cal < 256; cal++ )
+			{
+				double MHz = GetMHzOfOSCCAL( cal, argv[2] );
+				printf( "%d, %f\n", cal, MHz );
+				fflush( stdout );
+			}
+
+		}
 		else
 		{
 			double target = atof( argv[3] );
@@ -282,7 +294,7 @@ int main( int argc, char ** argv )
 				double MHz = GetMHzOfOSCCAL( osccal, argv[2] );
 				if( MHz < 0 ) return -98;
 				jump = jump * .8;
-				printf( "%d, %f\n", osccal, MHz );
+				fprintf( stderr, "%d, %f\n", osccal, MHz );
 				double diff = MHz - target;
 				if( diff < 0 ) diff = -diff;
 				if( diff < best_cal ) {
