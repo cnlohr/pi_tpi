@@ -10,38 +10,51 @@
 #include <fcntl.h>
 
 #define BCM2708_PERI_BASE       0x3F000000
+#define BCM2711_PERI_BASE       0xFE000000
+
+#ifdef RPI_4
+#define GPIO_BASE                         (BCM2711_PERI_BASE + 0x200000)
+#else
 #define GPIO_BASE                         (BCM2708_PERI_BASE + 0x200000)
+#endif
+
 
 static int gpiofd;
-static uint32_t * gpiomem;
+static volatile unsigned * gpiomem;
 
 //Based on http://www.pieter-jan.com/node/15
 
 int InitGenGPIO()
 {
 	int pagesize = getpagesize();
+	fprintf(stderr, "Page size: %i\n", pagesize);
+
+	void *gpio_ptr;
 
 	//Obtain handle to physical memory
 	if ((gpiofd = open ("/dev/mem", O_RDWR | O_SYNC) ) < 0)
 	{
 		fprintf( stderr, "Unable to open /dev/mem: %s\n", strerror(errno));
 		gpiomem = 0;
+		gpio_ptr = 0;
 		gpiofd = 0;
 		return -1;
-    }
+	}
 
 	//map a page of memory to gpio at offset 0x20200000 which is where GPIO goodnessstarts
-	gpiomem = (uint32_t *)mmap(0, pagesize, PROT_READ|PROT_WRITE, MAP_SHARED, gpiofd, GPIO_BASE );
+	gpio_ptr = mmap(0, pagesize, PROT_READ|PROT_WRITE, MAP_SHARED, gpiofd, GPIO_BASE );
 
-	if ((int32_t)gpiomem < 0)
+	if (gpio_ptr == MAP_FAILED)
 	{
-		printf("Mmap (GPIO) failed: %s\n", strerror(errno));
+		fprintf(stderr, "Mmap (GPIO) failed: (%i) %s (errno %i)\n", gpio_ptr, strerror(errno), errno);
 		gpiomem = 0;
+		gpio_ptr = 0;
 		gpiofd = 0;
 		close( gpiofd );
 		return -2;
 	}
 
+	gpiomem = (volatile unsigned *)gpio_ptr;
 	return 0;
 }
 

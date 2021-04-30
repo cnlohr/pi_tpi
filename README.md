@@ -1,5 +1,5 @@
 # pi_tpi
-Using a Raspberry Pi to program an ATTiny4/5/9/10.  But, mostly the $0.25 ATTiny10.  And, not necessarily a Raspberry Pi, but anything with GPIOs!
+Using a Raspberry Pi to program an ATTiny4/5/9/10.  But, mostly the $0.25 ATTiny10.  And, not necessarily a Raspberry Pi, but anything with GPIOs! After compiling with ```make```, you can use ```tpiflash``` on Raspberry Pi < 4, and ```tpiflash_rpi4``` on Raspberry Pi 4.
 
 Yep.  It works.  At least tested pretty thurrougly with my ATTiny10.  It can also read all the memories _AND_ run timings against the AVR to do processor clock calibration, as well as fuses and manual poking to flash en post to allow for custom configuration.
 
