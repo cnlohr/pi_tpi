@@ -1,12 +1,12 @@
-all : osccal.bin burn
+all : tpiflash
 
 AVRPART=attiny10
 AVRCFLAGS=-g -Wall -Os -mmcu=$(AVRPART) -DF_CPU=8000000UL
 AVRASFLAGS:=$(AVRCFLAGS)
 
-
 tpiflash : gpio_tpi.c gen_ios.c tpiflash.c
-	gcc -o $@ $^ -Os
+	gcc -o tpiflash $^
+	gcc -o tpiflash_rpi4 $^ -DRPI_4
 
 firmware.bin : firmware.c firmware.S
 	avr-gcc -I  -g $(AVRCFLAGS)   -mmcu=$(AVRPART) -Wl,-Map,firmware.map -o firmware.elf $^
