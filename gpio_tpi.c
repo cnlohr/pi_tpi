@@ -8,7 +8,7 @@
 //	https://pcm1723.hateblo.jp/entry/20111208/1323351725
 
 
-void ClockDelay() { int i = 1000; do { asm volatile ("nop"); } while( i-- ); } //700ksps (slow enough)
+void ClockDelay() { int i = 1000; do { asm volatile ("nop"); } while( i-- ); } //700ksps (@i = 500) (slow enough for most systems) ... on further use, i = 1000 seems more reliable.
 
 int did_send_last = 0;
 
