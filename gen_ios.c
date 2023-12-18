@@ -33,9 +33,10 @@ int InitGenGPIO()
 	//map a page of memory to gpio at offset 0x20200000 which is where GPIO goodnessstarts
 	gpiomem = (uint32_t *)mmap(0, pagesize, PROT_READ|PROT_WRITE, MAP_SHARED, gpiofd, GPIO_BASE );
 
-	if ((int32_t)gpiomem < 0)
+	// if ((int32_t)gpiomem < 0)
+	if (gpiomem == MAP_FAILED)
 	{
-		printf("Mmap (GPIO) failed: %s\n", strerror(errno));
+		fprintf(stderr, "Mmap (GPIO) failed: error was %s\n", strerror(errno));
 		gpiomem = 0;
 		gpiofd = 0;
 		close( gpiofd );
