@@ -104,7 +104,7 @@ int TPIInit()
 	int i;
 	int err = InitGenGPIO();
 	if (err != 0) {
-		printf("TPIInit(): Gpio init failed, InitGenGPIO() returned %i", err);
+		fprintf(stderr, "TPIInit(): Gpio init failed, InitGenGPIO() returned %i", err);
 		return err;
 	}
 
