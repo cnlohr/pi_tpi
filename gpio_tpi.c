@@ -102,7 +102,11 @@ void TPIBreak()
 int TPIInit()
 {
 	int i;
-	InitGenGPIO();
+	int err = InitGenGPIO();
+	if (err != 0) {
+		fprintf(stderr, "TPIInit(): Gpio init failed, InitGenGPIO() returned %i", err);
+		return err;
+	}
 
 	//NOTE: MUST HAVE PULL-UP ON DAT.
 
