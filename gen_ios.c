@@ -10,10 +10,16 @@
 #include <fcntl.h>
 
 #define BCM2708_PERI_BASE       0x3F000000
+#define BCM2711_PERI_BASE       0xFE000000
+
+#ifdef RPI_4
+#define GPIO_BASE                         (BCM2711_PERI_BASE + 0x200000)
+#else
 #define GPIO_BASE                         (BCM2708_PERI_BASE + 0x200000)
+#endif
 
 static int gpiofd;
-static uint32_t * gpiomem;
+static volatile uint32_t * gpiomem;
 
 //Based on http://www.pieter-jan.com/node/15
 
